@@ -8,6 +8,7 @@
     <meta name="theme-color" content="#3498db" />
     <meta name="color-scheme" content="light dark" />
     <title>原神产球及附着一览表</title>
+    <link rel="stylesheet" href="./style.css">
     <style>
         :root {
             --bg-color: #f5f7fa;
@@ -686,13 +687,6 @@
                 font-size: 13px;
             }
         }
-
-        /* iOS 安全区适配 */
-        @supports (padding: env(safe-area-inset-top)) {
-            @media (max-width: 480px) {
-                body {padding-top: calc(12px + env(safe-area-inset-top));}
-            }
-        }
     </style>
 </head>
 
@@ -733,7 +727,6 @@
                             <li>独立更新日志从页面遮罩改为弹窗</li>
                             <li>新增了可以使用武器筛选角色</li>
                             <li>补充了闲云的产球</li>
-                            <li>更新了ui界面与手机端的视觉效果（暂时仍有已知bug）</li>
                             <tr># edge浏览器中开关“更新日志”异常时：外观>浏览器行为和功能>常规行为>关闭始终显示滚动条</tr>
                         </ol>
                     </div>
