@@ -101,7 +101,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 19px;
             transition: all 0.3s ease;
             display: flex;
             align-items: center;
@@ -228,7 +228,7 @@
         td {
             border: 1px solid var(--border-color);
             padding: 12px 8px;
-            font-size: 14px;
+            font-size: 17px;
             width: 20%;
             word-break: break-word;
             overflow-wrap: anywhere;
@@ -337,7 +337,7 @@
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 19px;
             transition: all 0.3s ease;
         }
 
@@ -410,7 +410,7 @@
             padding: 10px;
             background-color: var(--info-bg);
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 17px;
             transition: background-color 0.3s;
         }
 
@@ -419,7 +419,7 @@
             padding: 10px;
             background-color: var(--wind-info-bg);
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 17px;
             transition: background-color 0.3s;
         }
 
@@ -539,11 +539,11 @@
                 flex-direction: column;
             }
 
-            body {font-size: 14px;}
+            body {font-size: 17px;}
 
             .tab-button {
                 padding: 8px 12px;
-                font-size: 13px;
+                font-size: 16px;
             }
 
             h1 {
@@ -639,30 +639,30 @@
                 gap: 6px;
             }
             
-            .weapon-button {padding: 6px 10px; font-size: 12px;}
+            .weapon-button {padding: 6px 10px; font-size: 15px;}
             .tab-button {padding: 6px 10px;}
-            .dark-mode-toggle {padding: 8px 12px; font-size: 13px;}
+            .dark-mode-toggle {padding: 8px 12px; font-size: 16px;}
             .content {padding: 20px;}
             .box {padding: 16px;}
             body {padding: 16px;}
-            th, td {padding: 10px 6px; font-size: 12.5px;}
+            th, td {padding: 10px 6px; font-size: 15.5px;}
         }
 
         /* 极小屏优化（≤480px），进一步压缩空间并提升可读性 */
         @media (max-width: 480px) {
-            body {font-size: 13px; padding: 12px;}
+            body {font-size: 16px; padding: 12px;}
             h1 {font-size: clamp(1.3rem, 6vw, 1.7rem);}            
             .element-title {font-size: clamp(1.1rem, 5.5vw, 1.5rem);}     
             .header-bar {padding: 12px 12px 8px;}
             .content {padding: 16px;}
             .box {padding: 14px;}
-            th, td {padding: 8px 6px; font-size: 12px;}
+            th, td {padding: 8px 6px; font-size: 15px;}
             .character-table h3 {font-size: 1rem; padding: 8px;}
             
             /* 超小屏下缩小图标 */
             .tab-button, .weapon-button {
                 padding: 5px 8px;
-                font-size: 11px;
+                font-size: 14px;
             }
             
             .tab-button img, .weapon-button img {
@@ -672,7 +672,7 @@
             
             .dark-mode-toggle {
                 padding: 6px 10px;
-                font-size: 13px;
+                font-size: 16px;
             }
         }
 
