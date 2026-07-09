@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="原神产球及附着一览表，支持按元素与武器筛选角色信息，包含技能附着规则与产球统计。" />
+  <meta name="theme-color" content="#3498db" />
+  <meta name="color-scheme" content="light dark" />
+  <title>原神产球及附着一览表</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      },
+      loader: {
+        paths: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5'
+        }
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <script src="./script.js"></script>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header-bar">
+    <div class="header-inner">
+      <button class="dark-mode-toggle" id="open-changelog">
+        <span>📝</span><span>更新日志</span>
+      </button>
+      <h1><span>原神产球及附着一览表</span></h1>
+      <div class="header-buttons">
+        <button class="dark-mode-toggle" id="open-formula">
+          <span>📐</span><span>公式</span>
+        </button>
+        <button class="dark-mode-toggle" id="toggle-dark-header">
+          <span class="mode-icon">🌙</span>
+          <span class="mode-text">深色模式</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 更新日志弹窗 -->
+  <div class="overlay" id="changelog-overlay" aria-hidden="true">
+    <div class="overlay-content">
+      <div class="overlay-header">
+        <h2><span>更新日志</span></h2>
+        <button class="dark-mode-toggle" id="toggle-dark-header">
+          <span class="mode-icon">🌙</span>
+          <span class="mode-text">深色模式</span>
+        </button>
+      </div>
+      <div class="overlay-body">
+        <div class="content">
+          <h3 style="text-align:center;margin:30px 0 20px;color:var(--primary-color);font-size:1.5rem;">V7.0.0 更新内容</h3>
+          <div class="info-box">
+            <ol style="margin:0;padding-left:24px;line-height:2;">
+              <li>使用Vite重构项目，数据驱动渲染</li>
+              <li>同步更新角色数据至最新版本</li>
+              <li>同步更新伤害计算公式</li>
+              <li>清理冗杂代码，优化性能</li>
+            </ol>
+          </div>
+          <p style="text-align:right;margin-top:40px;color:var(--text-color);font-size:0.9rem;font-style:italic;">--艾莲其实是爱恋的意思</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 公式弹窗 -->
+  <div class="overlay" id="formula-overlay" aria-hidden="true">
+    <div class="overlay-content">
+      <div class="overlay-header">
+        <h2><span>公式</span></h2>
+        <button class="dark-mode-toggle" id="toggle-dark-header">
+          <span class="mode-icon">🌙</span>
+          <span class="mode-text">深色模式</span>
+        </button>
+      </div>
+      <div class="overlay-body">
+        <div class="formula-grid" id="formula-render-target"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 顶部信息区 -->
+  <div class="container">
+    <div class="box">
+      <h2>属性强化区间表</h2>
+      <table>
+        <tr><th>属性</th><th>强化区间</th><th>最高区间</th><th>平均值</th></tr>
+        <tr><td>暴击率（%）</td><td>2.72/3.11/3.50/3.89</td><td>16.32~23.34</td><td>3.305</td></tr>
+        <tr><td>暴击伤害（%）</td><td>5.44/6.22/6.99/7.77</td><td>32.64~46.62</td><td>6.605</td></tr>
+        <tr><td>固定攻击力</td><td>13.62/15.56/17.51/19.45</td><td>81.72~116.70</td><td>16.535</td></tr>
+        <tr><td>百分比攻击力（%）</td><td>4.08/4.66/5.25/5.83</td><td>24.48~34.98</td><td>4.955</td></tr>
+        <tr><td>固定生命值</td><td>209.13/239.00/268.88/298.75</td><td>1254.78~1792.50</td><td>253.94</td></tr>
+        <tr><td>百分比生命值（%）</td><td>4.08/4.66/5.25/5.83</td><td>24.48~34.98</td><td>4.955</td></tr>
+        <tr><td>固定防御力</td><td>16.20/18.52/20.83/23.15</td><td>97.20~138.90</td><td>19.675</td></tr>
+        <tr><td>百分比防御力（%）</td><td>5.10/5.83/6.56/7.29</td><td>30.60~43.74</td><td>6.195</td></tr>
+        <tr><td>元素精通</td><td>16.32/18.65/20.98/23.31</td><td>97.92~139.86</td><td>19.815</td></tr>
+        <tr><td>元素充能效率（%）</td><td>4.53/5.18/5.83/6.48</td><td>27.18~38.88</td><td>5.505</td></tr>
+      </table>
+    </div>
+    <div class="right-column">
+      <div class="box">
+        <h2>普通攻击产球概率表</h2>
+        <table>
+          <tr><th>武器类型</th><th>基础概率（%）</th><th>失败提升概率（%）</th><th>平均攻击次数</th></tr>
+          <tr><td>单手剑</td><td>10</td><td>5</td><td>4.52</td></tr>
+          <tr><td>弓</td><td>0</td><td>5</td><td>6.29</td></tr>
+          <tr><td>双手剑</td><td>0</td><td>10</td><td>4.66</td></tr>
+          <tr><td>长柄武器</td><td>0</td><td>4</td><td>6.95</td></tr>
+          <tr><td>法器</td><td>0</td><td>10</td><td>4.66</td></tr>
+        </table>
+        <div class="info-box">
+          <p><strong>说明：</strong></p>
+          <p>当普攻或重击命中敌人时，有概率为角色产生1点能量。</p>
+          <p>每当普攻或重击未能产生能量时，概率都会增加。</p>
+          <p>当能量成功生成时，概率将被重置。</p>
+          <p>通过这种方式恢复的能量不受充能的影响。</p>
+        </div>
+      </div>
+      <div class="box">
+        <h2>角色充能计算器</h2>
+        <table id="energy-calc-table">
+          <colgroup>
+            <col style="width: 9%;">
+            <col style="width: 10%;">
+            <col style="width: 12%;">
+            <col style="width: 12%;">
+            <col style="width: 12%;">
+            <col style="width: 12%;">
+            <col style="width: 12%;">
+            <col style="width: 12%;">
+            <col style="width: 9%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th rowspan="2">角色</th>
+              <th rowspan="2">能量</th>
+              <th colspan="2">同色球</th>
+              <th colspan="2">无色球</th>
+              <th colspan="2">异色球</th>
+              <th rowspan="2">充能要求</th>
+            </tr>
+            <tr>
+              <th>前台</th><th>后台</th>
+              <th>前台</th><th>后台</th>
+              <th>前台</th><th>后台</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="text" id="character-name" placeholder="角色名称" list="character-suggestions">
+                <datalist id="character-suggestions"></datalist>
+              </td>
+              <td><input type="text" id="x" pattern="[0-9]*\.?[0-9]*" placeholder="能量"></td>
+              <td><input type="text" id="a" pattern="[0-9]*\.?[0-9]*" placeholder="前台" value="0"></td>
+              <td><input type="text" id="d" pattern="[0-9]*\.?[0-9]*" placeholder="后台" value="0"></td>
+              <td><input type="text" id="b" pattern="[0-9]*\.?[0-9]*" placeholder="前台" value="0"></td>
+              <td><input type="text" id="e" pattern="[0-9]*\.?[0-9]*" placeholder="后台" value="0"></td>
+              <td><input type="text" id="c" pattern="[0-9]*\.?[0-9]*" placeholder="前台" value="0"></td>
+              <td><input type="text" id="f" pattern="[0-9]*\.?[0-9]*" placeholder="后台" value="0"></td>
+              <td class="calc-result" id="result">未输入</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- 筛选栏 -->
+  <div class="filters-dock" id="filters-dock">
+    <button class="dark-mode-toggle action-left" id="open-changelog-dock">
+      <span>📝</span><span>更新日志</span>
+    </button>
+    <nav class="filters">
+      <div class="tabs">
+        <button class="tab-button active" data-element="fire" id="tab-fire" aria-label="火系" title="火系"></button>
+        <button class="tab-button" data-element="water" id="tab-water" aria-label="水系" title="水系"></button>
+        <button class="tab-button" data-element="thunder" id="tab-thunder" aria-label="雷系" title="雷系"></button>
+        <button class="tab-button" data-element="ice" id="tab-ice" aria-label="冰系" title="冰系"></button>
+        <button class="tab-button" data-element="wind" id="tab-wind" aria-label="风系" title="风系"></button>
+        <button class="tab-button" data-element="rock" id="tab-rock" aria-label="岩系" title="岩系"></button>
+        <button class="tab-button" data-element="grass" id="tab-grass" aria-label="草系" title="草系"></button>
+      </div>
+      <div class="weapon-tabs">
+        <button class="weapon-button" data-weapon="单手剑" id="weapon-单手剑" aria-label="单手剑" title="单手剑"></button>
+        <button class="weapon-button" data-weapon="弓" id="weapon-弓" aria-label="弓" title="弓"></button>
+        <button class="weapon-button" data-weapon="双手剑" id="weapon-双手剑" aria-label="双手剑" title="双手剑"></button>
+        <button class="weapon-button" data-weapon="长柄武器" id="weapon-长柄武器" aria-label="长柄武器" title="长柄武器"></button>
+        <button class="weapon-button" data-weapon="法器" id="weapon-法器" aria-label="法器" title="法器"></button>
+      </div>
+    </nav>
+    <div class="action-buttons">
+      <button class="dark-mode-toggle action-middle" id="open-formula-dock">
+        <span>📐</span><span>公式</span>
+      </button>
+      <button class="dark-mode-toggle action-right" id="toggle-dark-dock">
+        <span class="mode-icon">🌙</span>
+        <span class="mode-text">深色模式</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- 角色表格容器 -->
+  <main class="content" id="character-tabs-container"></main>
+
+</body>
+</html>
