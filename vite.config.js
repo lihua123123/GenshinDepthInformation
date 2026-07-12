@@ -12,19 +12,7 @@ export default defineConfig({
         name: 'app',
         entryFileNames: 'script.js',
         assetFileNames: 'style.css',
-        inlineDynamicImports: true,
       },
     },
   },
-  plugins: [
-    {
-      name: 'remove-module-type',
-      enforce: 'post',
-      transformIndexHtml(html) {
-        return html
-          .replace(/\s+type="module"/g, '')
-          .replace(/\s+crossorigin(=[^\s>]*)?/gi, '');
-      },
-    },
-  ],
 });

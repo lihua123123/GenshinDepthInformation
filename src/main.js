@@ -1,7 +1,5 @@
 // 角色数据
-import { elementLabels, elementIds, characters } from './data/characters.js';
-// 公式数据
-import { formulaSections } from './data/formulas.js';
+import { elementLabels, elementIds, weaponTypes, characters } from './data/characters.js';
 // 图标
 import { elementIcons, weaponIcons } from './assets/icons.js';
 // 样式
@@ -38,105 +36,6 @@ function escapeHtml(value) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
-}
-
-function inlineMarkdown(value) {
-  return value
-    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.+?)\*/g, '<em>$1</em>')
-    .replace(/==(.+?)==/g, '<span class="formula-highlight">$1</span>')
-    .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noreferrer">$1</a>');
-}
-
-function renderMarkdownBlocks(text) {
-  if (!text || text.trim() === '' || text.trim() === '﻿') return '<p class="formula-placeholder">（暂无内容）</p>';
-  const lines = text.replace(/\r\n/g, '\n').trim().split('\n');
-  const blocks = [];
-  let index = 0;
-
-  const readUntilBlank = () => {
-    const collected = [];
-    while (index < lines.length && lines[index].trim() !== '') {
-      collected.push(lines[index]);
-      index += 1;
-    }
-    return collected;
-  };
-
-  while (index < lines.length) {
-    const line = lines[index].trim();
-    if (!line) {
-      index += 1;
-      continue;
-    }
-
-    if (line.startsWith('$$')) {
-      index += 1;
-      const mathLines = [];
-      while (index < lines.length && lines[index].trim() !== '$$') {
-        mathLines.push(lines[index]);
-        index += 1;
-      }
-      if (index < lines.length && lines[index].trim() === '$$') index += 1;
-      const mathContent = mathLines.join('\n').trim();
-      if (mathContent) {
-        blocks.push(`<div class="formula-equation">\\[${escapeHtml(mathContent)}\\]</div>`);
-      }
-      continue;
-    }
-
-    if (line.startsWith('- ')) {
-      const items = [];
-      while (index < lines.length && lines[index].trim().startsWith('- ')) {
-        items.push(lines[index].trim().slice(2));
-        index += 1;
-      }
-      blocks.push(`<ul>${items.map(item => `<li>${inlineMarkdown(item)}</li>`).join('')}</ul>`);
-      continue;
-    }
-
-    if (/^\d+\.\s/.test(line)) {
-      const items = [];
-      while (index < lines.length && /^\d+\.\s/.test(lines[index].trim())) {
-        items.push(lines[index].trim().replace(/^\d+\.\s/, ''));
-        index += 1;
-      }
-      blocks.push(`<ol>${items.map(item => `<li>${inlineMarkdown(item)}</li>`).join('')}</ol>`);
-      continue;
-    }
-
-    if (line.startsWith('>')) {
-      const notes = [];
-      while (index < lines.length && lines[index].trim().startsWith('>')) {
-        notes.push(lines[index].trim().replace(/^>\s?/, ''));
-        index += 1;
-      }
-      blocks.push(`<div class="formula-note">${notes.map(note => inlineMarkdown(note)).join('<br>')}</div>`);
-      continue;
-    }
-
-    if (/^#{1,3}\s/.test(line)) {
-      const level = line.match(/^#+/)[0].length;
-      const tag = `h${Math.min(level + 2, 6)}`;
-      const text = line.replace(/^#+\s+/, '');
-      blocks.push(`<${tag}>${inlineMarkdown(text)}</${tag}>`);
-      index += 1;
-      continue;
-    }
-
-    if (line.startsWith('---')) {
-      blocks.push('<hr>');
-      index += 1;
-      continue;
-    }
-
-    const paragraphLines = readUntilBlank();
-    if (paragraphLines.length > 0) {
-      blocks.push(`<p>${inlineMarkdown(paragraphLines.join('<br>'))}</p>`);
-    }
-  }
-
-  return blocks.join('') || '<p class="formula-placeholder">（暂无内容）</p>';
 }
 
 // ========== 渲染角色表格 ==========
@@ -273,8 +172,7 @@ function initDarkMode() {
 // ========== 弹窗 ==========
 function initOverlays() {
   const bindings = [
-    { overlay: document.getElementById('changelog-overlay'), openButtons: ['open-changelog', 'open-changelog-dock'] },
-    { overlay: document.getElementById('formula-overlay'), openButtons: ['open-formula', 'open-formula-dock'] }
+    { overlay: document.getElementById('changelog-overlay'), openButtons: ['open-changelog', 'open-changelog-dock'] }
   ];
 
   const closeOverlay = (overlay) => {
@@ -292,54 +190,11 @@ function initOverlays() {
       overlay.classList.add('active');
       overlay.setAttribute('aria-hidden', 'false');
       document.body.classList.add('overlay-open');
-      if (overlay.id === 'formula-overlay') {
-        // 弹窗打开后重新渲染公式内容并触发 MathJax
-        // 使用 setTimeout 确保弹窗显示后再渲染
-        setTimeout(() => {
-          renderFormulaContent();
-        }, 50);
-      }
     }));
 
     overlay.addEventListener('click', e => { if (e.target === overlay) closeOverlay(overlay); });
     if (overlayContent) overlayContent.addEventListener('click', e => e.stopPropagation());
   });
-}
-
-// ========== MathJax ==========
-function typesetMath(root) {
-  if (!window.MathJax?.typesetPromise) return;
-  try {
-    window.MathJax.typesetPromise(root ? [root] : undefined);
-  } catch (error) {
-    console.error('MathJax render failed:', error);
-  }
-}
-
-function renderFormulaContent() {
-  const target = document.getElementById('formula-render-target');
-  if (!target || !formulaSections.length) return;
-
-  const html = formulaSections.map(section => {
-    const content = renderMarkdownBlocks(section.content);
-    return `
-      <section class="info-box formula-card">
-        <h3>${escapeHtml(section.title)}</h3>
-        ${content}
-      </section>
-    `;
-  }).join('');
-
-  target.innerHTML = html;
-  
-  // 延迟调用 MathJax 渲染，确保 DOM 已插入
-  if (window.MathJax?.typesetPromise) {
-    requestAnimationFrame(() => {
-      window.MathJax.typesetPromise([target]).catch(err => {
-        console.error('MathJax typeset failed:', err);
-      });
-    });
-  }
 }
 
 // ========== 充能计算器 ==========
@@ -431,11 +286,10 @@ function initScrollEffects() {
   };
 
   let animationTimeout;
-  const headerHeight = () => headerBar.offsetHeight || 0;
 
   const updateHeaderVisibility = () => {
-    const threshold = Math.max(0, filtersDock.offsetTop - headerHeight());
-    const passedDock = window.scrollY >= threshold;
+    const dockTop = filtersDock.getBoundingClientRect().top;
+    const passedDock = dockTop <= 8;
 
     if (passedDock) {
       clearTimeout(animationTimeout);
@@ -506,7 +360,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initCharacterTabs();
   initScrollEffects();
   initOverlays();
-  renderFormulaContent();
   bindEvents();
 
   currentElement = document.querySelector('.tab-button.active')?.dataset.element || currentElement;

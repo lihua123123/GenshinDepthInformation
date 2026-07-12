@@ -84,9 +84,11 @@
 
         .header-inner {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             align-items: center;
             gap: 12px;
+            max-width: 1280px;
+            margin: 0 auto;
         }
 
         .header-inner > button:first-child {
@@ -129,103 +131,6 @@
             gap: 8px;
             min-width: 100px;
             justify-content: center;
-        }
-
-        .formula-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        .formula-card {
-            margin-top: 0;
-            line-height: 1.75;
-            min-width: 0;
-            max-width: 100%;
-        }
-
-        .formula-card h3 {
-            margin: 0 0 10px;
-            color: var(--primary-color);
-            font-size: 1.15rem;
-            text-align: center;
-        }
-
-        .formula-equation {
-            margin: 10px 0;
-            padding: 10px 12px;
-            background: var(--card-bg);
-            border-radius: 8px;
-            white-space: pre-line;
-            word-break: break-word;
-            color: var(--text-color);
-            max-width: 100%;
-            overflow-x: auto;
-            overflow-y: hidden;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        .math-formula {
-            white-space: normal;
-            text-align: center;
-            overflow-x: auto;
-        }
-
-        .math-formula mjx-container {
-            margin: 0 auto !important;
-        }
-
-        .math-formula mjx-container[jax="CHTML"] {
-            display: inline-block;
-        }
-
-        .formula-card ul {
-            margin: 10px 0 0;
-            padding-left: 22px;
-        }
-
-        .formula-card li {
-            margin: 6px 0;
-        }
-
-        .formula-note {
-            color: var(--text-color);
-            opacity: 0.92;
-            background-color: var(--note-bg);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin: 8px 0;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        .formula-highlight {
-            background-color: rgba(255, 255, 0, 0.25);
-            padding: 1px 4px;
-            border-radius: 3px;
-        }
-
-        body.dark-mode .formula-highlight {
-            background-color: rgba(255, 255, 0, 0.15);
-        }
-
-        .formula-card h3,
-        .formula-card h4 {
-            margin: 16px 0 8px;
-            color: var(--heading-color);
-        }
-
-        .formula-card h3 {
-            font-size: 1.1rem;
-        }
-
-        .formula-card h4 {
-            font-size: 1.05rem;
-        }
-
-        .formula-card hr {
-            margin: 16px 0;
-            border: none;
-            border-top: 1px solid var(--border-color);
         }
 
         /* 更新日志弹窗样式 - 85%大小，支持淡入淡出，点击外部关闭 */
@@ -416,7 +321,7 @@
             top: 0;
             z-index: 100;
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
             align-items: center;
             gap: 12px;
             background: var(--bg-color);
@@ -425,6 +330,9 @@
             border-radius: 12px;
             box-shadow: 0 0 0 var(--shadow);
             transition: box-shadow 0.35s ease, transform 0.35s ease, background-color 0.3s ease;
+            max-width: 1280px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .filters-dock > .action-left {
@@ -435,6 +343,8 @@
         .filters-dock > .filters {
             grid-column: 2;
             justify-self: center;
+            width: max-content;
+            max-width: 100%;
         }
 
         .filters-dock > .action-buttons {
@@ -832,9 +742,9 @@
             }
             
             .header-bar .header-inner {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                gap: 8px;
                 align-items: center;
             }
             
@@ -844,42 +754,80 @@
             }
             
             .header-bar .header-inner > button:first-child {
-                align-self: flex-start;
+                align-self: auto;
+                justify-self: start;
             }
             
             .header-buttons {
-                align-self: flex-end;
+                align-self: auto;
+                justify-self: end;
                 gap: 8px;
+            }
+
+            /* 手机端顶部按钮仅保留图标，隐藏文字 */
+            #open-changelog span:last-child,
+            #toggle-dark-header .mode-text {
+                display: none !important;
+            }
+
+            #open-changelog,
+            #toggle-dark-header {
+                min-width: 42px;
+                padding: 8px;
+                gap: 0;
             }
 
             /* 手机端公式网格已经是单列，无需修改 */
             
             /* 手机端过滤器-dock折行布局 */
             .filters-dock {
-                display: flex;
-                flex-direction: column;
+                display: grid;
+                grid-template-columns: 1fr auto;
+                grid-template-areas:
+                    "left right"
+                    "filters filters";
                 gap: 8px;
                 padding: 10px 12px;
                 margin-bottom: 16px;
                 align-items: center;
             }
 
-            .filters-dock .action-left,
-            .filters-dock .action-middle,
-            .filters-dock .action-right,
-            .filters-dock .action-buttons {
-                opacity: 1;
-                pointer-events: auto;
-                transform: translateY(0);
+            .filters-dock > .action-left {
+                grid-area: left;
+                justify-self: start;
+            }
+
+            .filters-dock > .action-buttons {
+                grid-area: right;
+                justify-self: end;
+                gap: 8px;
+            }
+
+            .filters-dock > .filters {
+                grid-area: filters;
+                width: 100%;
+                justify-self: stretch;
             }
             
-            .filters-dock > .action-buttons {
-                justify-self: auto;
-                gap: 8px;
+            .filters-dock .action-left span:last-child,
+            .filters-dock .action-right .mode-text {
+                display: none !important;
+            }
+
+            .filters-dock .action-left,
+            .filters-dock .action-right {
+                min-width: 42px;
+                padding: 8px;
+                gap: 0;
+            }
+
+            .filters-dock .action-right .mode-icon {
+                margin: 0;
             }
             
             .filters {
-                display: contents;
+                display: flex;
+                flex-direction: column;
             }
             
             .tabs,
@@ -887,6 +835,11 @@
                 justify-content: center;
                 flex-wrap: wrap;
                 gap: 6px;
+            }
+
+            .filter-icon {
+                width: 24px;
+                height: 24px;
             }
             
             .weapon-button {padding: 6px 10px; font-size: 15px;}
@@ -916,6 +869,11 @@
             }
             
             .tab-button img, .weapon-button img {
+                width: 18px;
+                height: 18px;
+            }
+
+            .filter-icon {
                 width: 18px;
                 height: 18px;
             }

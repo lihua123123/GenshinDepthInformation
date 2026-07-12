@@ -7,23 +7,6 @@
   <meta name="theme-color" content="#3498db" />
   <meta name="color-scheme" content="light dark" />
   <title>原神产球及附着一览表</title>
-  <script>
-    window.MathJax = {
-      tex: {
-        inlineMath: [['\\(', '\\)'], ['$', '$']],
-        displayMath: [['\\[', '\\]'], ['$$', '$$']]
-      },
-      options: {
-        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-      },
-      loader: {
-        paths: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5'
-        }
-      }
-    };
-  </script>
-  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
   <!-- Header -->
@@ -34,9 +17,6 @@
       </button>
       <h1><span>原神产球及附着一览表</span></h1>
       <div class="header-buttons">
-        <button class="dark-mode-toggle" id="open-formula">
-          <span>📐</span><span>公式</span>
-        </button>
         <button class="dark-mode-toggle" id="toggle-dark-header">
           <span class="mode-icon">🌙</span>
           <span class="mode-text">深色模式</span>
@@ -68,22 +48,6 @@
           </div>
           <p style="text-align:right;margin-top:40px;color:var(--text-color);font-size:0.9rem;font-style:italic;">--艾莲其实是爱恋的意思</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 公式弹窗 -->
-  <div class="overlay" id="formula-overlay" aria-hidden="true">
-    <div class="overlay-content">
-      <div class="overlay-header">
-        <h2><span>公式</span></h2>
-        <button class="dark-mode-toggle" id="toggle-dark-header">
-          <span class="mode-icon">🌙</span>
-          <span class="mode-text">深色模式</span>
-        </button>
-      </div>
-      <div class="overlay-body">
-        <div class="formula-grid" id="formula-render-target"></div>
       </div>
     </div>
   </div>
@@ -199,9 +163,6 @@
       </div>
     </nav>
     <div class="action-buttons">
-      <button class="dark-mode-toggle action-middle" id="open-formula-dock">
-        <span>📐</span><span>公式</span>
-      </button>
       <button class="dark-mode-toggle action-right" id="toggle-dark-dock">
         <span class="mode-icon">🌙</span>
         <span class="mode-text">深色模式</span>
