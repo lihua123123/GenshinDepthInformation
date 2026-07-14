@@ -13,6 +13,9 @@ dist-single
 dist-ssr
 *.local
 
+# Auto-generated files
+src/data/characters.js
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

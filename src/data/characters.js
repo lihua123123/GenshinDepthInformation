@@ -1,12 +1,19 @@
-// 角色数据 - 从元素附着及产球.md解析生成
+// 角色数据 - 从 元素附着及产球.md 解析生成
+// 更新角色数据请修改 src/data/元素附着及产球.md，然后运行: node scripts/parse-md.mjs
+
 export const elementLabels = {
-  fire: '火系', water: '水系', thunder: '雷系',
-  ice: '冰系', wind: '风系', rock: '岩系', grass: '草系'
+  "fire": "火系",
+  "water": "水系",
+  "thunder": "雷系",
+  "ice": "冰系",
+  "wind": "风系",
+  "rock": "岩系",
+  "grass": "草系"
 };
 
-export const elementIds = ['fire', 'water', 'thunder', 'ice', 'wind', 'rock', 'grass'];
+export const elementIds = ["fire","water","thunder","ice","wind","rock","grass"];
 
-export const weaponTypes = ['单手剑', '弓', '双手剑', '长柄武器', '法器'];
+export const weaponTypes = ["单手剑","弓","双手剑","长柄武器","法器"];
 
 export const characters = {
   "fire": [

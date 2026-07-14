@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "data:parse": "node scripts/parse-md.mjs",
     "dev": "vite",
-    "build": "vite build",
-    "build:single": "vite build --config vite.singlefile.config.js && powershell -NoProfile -Command \"Copy-Item 'dist-single/index.html' 'dist-single/原神产球及附着.html' -Force; Remove-Item 'dist-single/index.html'\"",
+    "build": "npm run data:parse && vite build",
+    "build:single": "npm run data:parse && vite build --config vite.singlefile.config.js && powershell -NoProfile -Command \"Copy-Item 'dist-single/index.html' 'dist-single/原神产球及附着.html' -Force; Remove-Item 'dist-single/index.html'\"",
     "preview": "vite preview"
   },
   "devDependencies": {
