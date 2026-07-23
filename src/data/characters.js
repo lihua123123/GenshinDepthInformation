@@ -858,7 +858,7 @@ export const characters = {
     {
       "name": "尼可",
       "weapon": "法器",
-      "energy": "无",
+      "energy": "60",
       "skills": [
         {
           "name": "E",
@@ -2637,6 +2637,45 @@ export const characters = {
           "poise": ""
         }
       ]
+    },
+    {
+      "name": "阿罗夏",
+      "weapon": "长柄武器",
+      "energy": "70",
+      "skills": [
+        {
+          "name": "e",
+          "elementAmount": "弱雷",
+          "attachRule": "",
+          "particles": "5 个",
+          "note": "",
+          "poise": ""
+        },
+        {
+          "name": "E",
+          "elementAmount": "",
+          "attachRule": "",
+          "particles": "与「 e 」共用产球 CD",
+          "note": "",
+          "poise": ""
+        },
+        {
+          "name": "Q 持续",
+          "elementAmount": "弱雷",
+          "attachRule": "独立",
+          "particles": "",
+          "note": "轰霆猎场",
+          "poise": ""
+        },
+        {
+          "name": "Q 后续",
+          "elementAmount": "弱雷",
+          "attachRule": "独立",
+          "particles": "",
+          "note": "图加林",
+          "poise": ""
+        }
+      ]
     }
   ],
   "ice": [
@@ -3465,7 +3504,7 @@ export const characters = {
     {
       "name": "洛恩",
       "weapon": "长柄武器",
-      "energy": "无",
+      "energy": "60",
       "skills": [
         {
           "name": "普攻/重击",
@@ -3511,8 +3550,8 @@ export const characters = {
     },
     {
       "name": "桑多涅",
-      "weapon": "未知",
-      "energy": "未知",
+      "weapon": "双手剑",
+      "energy": "60",
       "skills": [
         {
           "name": "重击一段",
@@ -3560,6 +3599,92 @@ export const characters = {
           "attachRule": "与「重击」共用附着 CD",
           "particles": "",
           "note": "非星辉",
+          "poise": ""
+        }
+      ]
+    },
+    {
+      "name": "旅行者",
+      "weapon": "单手剑",
+      "energy": "60",
+      "skills": [
+        {
+          "name": "重击",
+          "elementAmount": "弱冰",
+          "attachRule": "独立",
+          "particles": "",
+          "note": "重击·冰凝，非辉映",
+          "poise": ""
+        },
+        {
+          "name": "e",
+          "elementAmount": "弱冰",
+          "attachRule": "",
+          "particles": "",
+          "note": "",
+          "poise": ""
+        },
+        {
+          "name": "e",
+          "elementAmount": "弱冰",
+          "attachRule": "",
+          "particles": "",
+          "note": "辉映·星超导",
+          "poise": ""
+        },
+        {
+          "name": "e",
+          "elementAmount": "",
+          "attachRule": "",
+          "particles": "",
+          "note": "辉映·星超导，12 s",
+          "poise": ""
+        },
+        {
+          "name": "q",
+          "elementAmount": "弱冰",
+          "attachRule": "2.5 s/3 hit",
+          "particles": "",
+          "note": "非辉映",
+          "poise": ""
+        }
+      ]
+    },
+    {
+      "name": "奥黛塔",
+      "weapon": "单手剑",
+      "energy": "60",
+      "skills": [
+        {
+          "name": "e",
+          "elementAmount": "弱冰",
+          "attachRule": "",
+          "particles": "5 个/12 s",
+          "note": "",
+          "poise": ""
+        },
+        {
+          "name": "e 二段",
+          "elementAmount": "弱冰",
+          "attachRule": "",
+          "particles": "",
+          "note": "破晓终奏",
+          "poise": ""
+        },
+        {
+          "name": "e 后续",
+          "elementAmount": "弱冰",
+          "attachRule": "",
+          "particles": "",
+          "note": "独舞倒影",
+          "poise": ""
+        },
+        {
+          "name": "Q",
+          "elementAmount": "弱冰",
+          "attachRule": "2.5 s/3 hit",
+          "particles": "",
+          "note": "",
           "poise": ""
         }
       ]
@@ -4313,7 +4438,7 @@ export const characters = {
           "elementAmount": "弱风",
           "attachRule": "12 s/2 hit",
           "particles": "4~5 个（2:1）",
-          "note": "E 后",
+          "note": "E 后，援护射击",
           "poise": ""
         },
         {
@@ -4343,7 +4468,7 @@ export const characters = {
         {
           "name": "命座6",
           "elementAmount": "弱风",
-          "attachRule": "",
+          "attachRule": "与「援护射击」共用附着 CD",
           "particles": "",
           "note": "额外秘药弹",
           "poise": ""
@@ -4487,7 +4612,7 @@ export const characters = {
     {
       "name": "布伦妮",
       "weapon": "法器",
-      "energy": "无",
+      "energy": "70",
       "skills": [
         {
           "name": "E",
@@ -4724,7 +4849,7 @@ export const characters = {
     {
       "name": "阿贝多",
       "weapon": "单手剑",
-      "energy": "未知",
+      "energy": "40",
       "skills": [
         {
           "name": "E 释放",
@@ -4763,7 +4888,7 @@ export const characters = {
     {
       "name": "荒泷一斗",
       "weapon": "双手剑",
-      "energy": "未知",
+      "energy": "70",
       "skills": [
         {
           "name": "普攻/重击",
@@ -5179,7 +5304,7 @@ export const characters = {
     {
       "name": "旅行者（草）",
       "weapon": "单手剑",
-      "energy": "未知",
+      "energy": "80",
       "skills": [
         {
           "name": "E",
@@ -5414,7 +5539,7 @@ export const characters = {
     {
       "name": "瑶瑶",
       "weapon": "长柄武器",
-      "energy": "未知",
+      "energy": "80",
       "skills": [
         {
           "name": "E",
