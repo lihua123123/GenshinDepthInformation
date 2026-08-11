@@ -2646,23 +2646,23 @@ export const characters = {
         {
           "name": "e",
           "elementAmount": "弱雷",
-          "attachRule": "",
+          "attachRule": "独立",
           "particles": "5 个",
           "note": "",
           "poise": ""
         },
         {
           "name": "E",
-          "elementAmount": "",
-          "attachRule": "",
+          "elementAmount": "弱雷",
+          "attachRule": "独立",
           "particles": "与「 e 」共用产球 CD",
           "note": "",
-          "poise": ""
+          "poise": "0.5"
         },
         {
           "name": "Q 持续",
           "elementAmount": "弱雷",
-          "attachRule": "独立",
+          "attachRule": "1.6 sCD",
           "particles": "",
           "note": "轰霆猎场",
           "poise": ""
@@ -2670,7 +2670,7 @@ export const characters = {
         {
           "name": "Q 后续",
           "elementAmount": "弱雷",
-          "attachRule": "独立",
+          "attachRule": "与「Q 持续」共用附着 CD",
           "particles": "",
           "note": "图加林",
           "poise": ""
@@ -3611,25 +3611,25 @@ export const characters = {
         {
           "name": "重击",
           "elementAmount": "弱冰",
-          "attachRule": "独立",
-          "particles": "",
+          "attachRule": "2.5 s/3 hit",
+          "particles": "3 个",
           "note": "重击·冰凝，非辉映",
           "poise": ""
         },
         {
           "name": "e",
           "elementAmount": "弱冰",
-          "attachRule": "",
+          "attachRule": "2.5 s/3 hit",
           "particles": "",
           "note": "",
           "poise": ""
         },
         {
-          "name": "e",
+          "name": "e 后续",
           "elementAmount": "弱冰",
-          "attachRule": "",
+          "attachRule": "2.5 s",
           "particles": "",
-          "note": "辉映·星超导",
+          "note": "冰晶，非辉映·星超导",
           "poise": ""
         },
         {
@@ -3658,7 +3658,7 @@ export const characters = {
         {
           "name": "e",
           "elementAmount": "弱冰",
-          "attachRule": "",
+          "attachRule": "独立",
           "particles": "5 个/12 s",
           "note": "",
           "poise": ""
@@ -3666,17 +3666,25 @@ export const characters = {
         {
           "name": "e 二段",
           "elementAmount": "弱冰",
-          "attachRule": "",
-          "particles": "",
+          "attachRule": "3 sCD",
+          "particles": "与「 e 」共用产球 CD",
           "note": "破晓终奏",
           "poise": ""
         },
         {
           "name": "e 后续",
           "elementAmount": "弱冰",
-          "attachRule": "",
+          "attachRule": "独立",
           "particles": "",
-          "note": "独舞倒影",
+          "note": "拂羽舞步",
+          "poise": ""
+        },
+        {
+          "name": "e 后续",
+          "elementAmount": "弱冰",
+          "attachRule": "独立",
+          "particles": "",
+          "note": "旋翼舞步",
           "poise": ""
         },
         {
@@ -3696,6 +3704,22 @@ export const characters = {
       "weapon": "单手剑",
       "energy": "60",
       "skills": [
+        {
+          "name": "重击",
+          "elementAmount": "弱风",
+          "attachRule": "2.5 s/3 hit",
+          "particles": "",
+          "note": "",
+          "poise": ""
+        },
+        {
+          "name": "重击",
+          "elementAmount": "弱染色",
+          "attachRule": "1 s",
+          "particles": "",
+          "note": "风旋",
+          "poise": ""
+        },
         {
           "name": "E 持续",
           "elementAmount": "弱风，弱染色",
